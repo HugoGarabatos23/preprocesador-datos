@@ -1,0 +1,9 @@
+# Excluir el entorno virtual
+venv/ 
+# Archivos generados por Python
+__pycache__/
+*.pyc
+# Archivos de datos o sensibles
+*.csv
+*.sqlite
+*.db
