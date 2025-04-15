@@ -5,5 +5,5 @@ __pycache__/
 *.pyc
 # Archivos de datos o sensibles
 *.csv
-*.sqlite
 *.db
+*.xlsx
