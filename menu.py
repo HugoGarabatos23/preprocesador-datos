@@ -9,25 +9,45 @@ class MenuManager:
     def mostrar_menu_principal(self):
         seguir = True
         while seguir:
-            print("=============================")
+            print("\n=============================")
             print("Menú Principal")
             print("=============================")
-            if self.estado.datos_cargados():
-                print("[✓] 1. Cargar datos (archivo:", self.estado.nombre_archivo + ")")
-                if not self.estado.columnas_seleccionadas():
-                    print("[-] 2. Preprocesado de datos (selección de columnas requerida)")
-                else: 
-                    print("[✓] 2. Preprocesado de datos (selección de columnas completada)")
 
-                print("[✗] 3. Visualización de datos (requiere preprocesado)")
-                print("[✗] 4. Exportar datos (requiere preprocesado)")
+            # Paso 1: Carga de datos
+            if self.estado.datos_cargados():
+                print(f"[✓] 1. Cargar datos (archivo: {self.estado.nombre_archivo})")
             else:
                 print("[-] 1. Cargar datos (ningún archivo cargado)")
-                print("[✗] 2. Preprocesado de datos (requiere carga de datos)")
-                print("[✗] 3. Visualización de datos (requiere carga y preprocesado)")
-                print("[✗] 4. Exportar datos (requiere carga y preprocesado)")
 
+            # Paso 2: Preprocesado
+            if not self.estado.datos_cargados():
+                print("[✗] 2. Preprocesado de datos (requiere carga de datos)")
+            elif not self.estado.estado_columnas_seleccionadas:
+                print("[-] 2. Preprocesado de datos (selección de columnas requerida)")
+            else:
+                print("[✓] 2. Preprocesado de datos")
+                print("      [✓] 2.1 Selección de columnas (completado)")
+                print("      [✓] 2.2 Manejo de datos faltantes (completado)" if self.estado.faltantes_manejados else "      [-] 2.2 Manejo de datos faltantes (pendiente)")
+                print("      [✓] 2.3 Transformación de datos categóricos (completado)" if self.estado.transformacion_categorica else "      [✗] 2.3 Transformación de datos categóricos (pendiente)")
+                print("      [✓] 2.4 Normalización y escalado (completado)" if self.estado.normalizacion_completada else "      [✗] 2.4 Normalización y escalado (requiere transformación categórica)")
+                print("      [✓] 2.5 Detección y manejo de valores atípicos (completado)" if self.estado.outliers_manejados else "      [✗] 2.5 Detección y manejo de valores atípicos (requiere normalización)")
+
+            # Paso 3: Visualización
+            if self.estado.preprocesado_completo():
+                print("[✓] 3. Visualización de datos")
+            else:
+                print("[✗] 3. Visualización de datos (requiere preprocesado completo)")
+
+            # Paso 4: Exportar
+            if self.estado.preprocesado_completo():
+                print("[✓] 4. Exportar datos")
+            else:
+                print("[✗] 4. Exportar datos (requiere preprocesado completo)")
+
+            # Salir
             print("[✓] 5. Salir")
+
+
 
             opcion = input("Seleccione una opción: ")
             if opcion == "1":
@@ -67,6 +87,12 @@ class MenuManager:
                 volver = True
             else:
                 print("Opción inválida.")
+
+            
+            # Si la carga fue exitosa, volvemos automáticamente
+            if self.estado.datos_cargados():
+                return
+            
 
     def mostrar_submenu_seleccion_columnas(self):
         if not self.estado.datos_cargados():

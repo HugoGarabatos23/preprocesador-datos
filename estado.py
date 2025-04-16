@@ -8,10 +8,17 @@ class AppState:
             cls._instancia.nombre_archivo = None
             cls._instancia.features = []
             cls._instancia.target = None
+
+            # Inicializar estados de preprocesamiento
+            cls._instancia.estado_columnas_seleccionadas = False
+            cls._instancia.faltantes_manejados = False
+            cls._instancia.transformacion_categorica = False
+            cls._instancia.normalizacion_completada = False
+            cls._instancia.outliers_manejados = False
         return cls._instancia
 
     def datos_cargados(self):
-        return self.datos is not None
+        return self.datos is not None and not self.datos.empty
     
     def columnas_seleccionadas(self):
         return (
@@ -30,3 +37,12 @@ class AppState:
             return f"Features = {self.features}, Target = {self.target}"
         else:
             return "No se han seleccionado columnas de entrada/salida correctamente."
+        
+    def preprocesado_completo(self):
+        return (
+            self.estado_columnas_seleccionadas and
+            self.faltantes_manejados and
+            self.transformacion_categorica and
+            self.normalizacion_completada and
+            self.outliers_manejados
+            )
