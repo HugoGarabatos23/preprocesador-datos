@@ -84,42 +84,63 @@ class MenuManager:
             print(f"  [{i}] {col}")
         
         # Solicitar al usuario que ingrese las columnas de entrada (features)
-        try:
+        # Repetimos hasta que el usuario ingrese features y target válidos
+        correccion = False
+        while not correccion:
+        
             features_input = input("\nIngrese los números de las columnas de entrada (features), separados por comas: ").strip()
             # Verificamos que la entrada contenga solo números, comas y espacios
-            if not re.fullmatch(r"[\d,\s]+", features_input):
-                print("❌ Error: Use solo comas para separar los números. Ejemplo válido: 1,2,3")
-                return  # o return, según dónde estés
-            features_indices = [int(i) - 1 for i in features_input.split(",") if i.isdigit()]
-            features = [columnas[i] for i in features_indices]
+                    # Validar con regex
+            if not re.fullmatch(r"[0-9,\s]+", features_input):
+                print("❌ Error: Use solo números separados por comas. Ejemplo: 1,2,3")
+                continue
             
-            # Solicitar la columna de salida (target)
-            target_input = input("\nIngrese el número de la columna de salida (target): ").strip()
+            try:
+                features_indices = [int(i.strip()) - 1 for i in features_input.split(",")]
+                if any(i < 0 or i >= len(columnas) for i in features_indices):
+                    print(" ❌Error: Uno o más índices están fuera de rango.")
+                    continue
+            
+            
+                features = [columnas[i] for i in features_indices]
+
+                if not features:
+                    print("⚠ Error: Debe seleccionar al menos una columna como feature.")
+                    continue
+            
+                # Solicitar la columna de salida (target)
+                target_input = input("\nIngrese el número de la columna de salida (target): ").strip()
+                if not target_input.isdigit():
+                    print("❌ Error: El target debe ser un número válido.")
+                    continue
             
 
-            target_index = int(target_input) - 1
-            target = columnas[target_index]
+                target_index = int(target_input) - 1
 
-            # Validar selección
-            if not features:
-                print("⚠ Error: Debe seleccionar al menos una columna como feature.")
-                return
-            if target in features:
-                print(f"⚠ Error: La columna de salida (target) no puede estar en las features.")
-                return
+                if target_index < 0 or target_index >= len(columnas):
+                    print("❌ Error: Índice fuera de rango.")
+                    continue
+                
+                
+                target = columnas[target_index]
 
-            # Almacenar selección
-            self.estado.features = features
-            self.estado.target = target
+                if target in features:
+                    print("⚠ Error: La columna de salida (target) no puede estar entre las features.")
+                    continue
 
-            # Confirmar selección
-            print(f"\nSelección guardada: Features = {self.estado.features}, Target = {self.estado.target}")
-            
-            # Actualizar estado del menú principal
-            self.estado.estado_columnas_seleccionadas = True
+                # Almacenar selección
+                self.estado.features = features
+                self.estado.target = target
 
-        except ValueError:
-            print("⚠ Error: Entrada no válida. Intente nuevamente.")
+                # Confirmar selección
+                print(f"\nSelección guardada: Features = {self.estado.features}, Target = {self.estado.target}")
+                
+                # Actualizar estado del menú principal
+                self.estado.estado_columnas_seleccionadas = True
+                correccion = True
+
+            except Exception:
+                print("⚠ Error: Entrada inesperado. Intente nuevamente.")
 
     
 
