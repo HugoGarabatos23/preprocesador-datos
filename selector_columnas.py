@@ -42,11 +42,13 @@ def mostrar_submenu_seleccion_columnas(estado: AppState) -> None:
                 continue
         
             # Solicitar la columna de salida (target)
+           # Solicitar la columna de salida (target)
             target_input = input("\nIngrese el número de la columna de salida (target): ").strip()
-            if not target_input.isdigit():
-                print("❌ Error: El target debe ser un número válido.")
+
+            # Validar que sea un único número
+            if not re.fullmatch(r"\d+", target_input):
+                print("❌ Error: Solo se permite una única columna como target (un número).")
                 continue
-        
 
             target_index = int(target_input) - 1
 
