@@ -3,6 +3,37 @@
 import pandas as pd
 import sqlite3
 import os
+from estado import AppState
+
+
+def mostrar_submenu_carga(estado: AppState) -> None:
+    volver = False
+    while not volver:
+        print("\n=============================")
+        print("Carga de Datos")
+        print("=============================")
+        print("Seleccione el tipo de archivo a cargar:")
+        print("  [1] CSV")
+        print("  [2] Excel")
+        print("  [3] SQLite")
+        print("  [4] Volver al menú principal")
+
+        opcion = input("Seleccione una opción: ")
+        if opcion == "1":
+            cargar_csv(estado)
+        elif opcion == "2":
+            cargar_excel(estado)
+        elif opcion == "3":
+            cargar_sqlite(estado)
+        elif opcion == "4":
+            volver = True
+        else:
+            print("Opción inválida.")
+
+        
+        # Si la carga fue exitosa, volvemos automáticamente
+        if estado.datos_cargados():
+            return
 
 def cargar_csv(estado):
     ruta = input("Ingrese la ruta del archivo CSV: ").strip()
