@@ -19,15 +19,8 @@ def mostrar_submenu_manejo_nulos(estado: AppState):
 
     df = estado.datos
     columnas = estado.features + [estado.target]
-
-    print("Columnas seleccionadas:", columnas)
-    print("Columnas reales en df:", df.columns.tolist())
-
     # Detectar valores faltantes
     nulos = df[columnas].isnull().sum()
-    print("\nResumen de valores nulos detectados en columnas seleccionadas:")
-    print(nulos)
-    print("\nCabin - valores nulos detectados:", df["Cabin"].isnull().sum())
     nulos_detectados = nulos[nulos > 0]
 
     print("\n=============================")
@@ -43,6 +36,7 @@ def mostrar_submenu_manejo_nulos(estado: AppState):
     for col, cantidad in nulos_detectados.items():
         print(f"  - {col}: {cantidad} valores faltantes")
 
+    estrategia = None
     menu_nulos = True
     while menu_nulos:
         print("\nSeleccione una estrategia para manejar los valores faltantes:")
@@ -79,12 +73,13 @@ def mostrar_submenu_manejo_nulos(estado: AppState):
         else:
             print("Opción inválida.")
             continue
-    
-        try:
-            estado.datos = estrategia.aplicar(df, columnas)
-            estado.faltantes_manejados = True
-            print("✅ Valores faltantes gestionados correctamente.\n")
-        except Exception as e:
-            print(f"❌ Error al aplicar la estrategia: {e}")
-        break
+            
+        if estrategia is not None:
+            try:
+                estado.datos = estrategia.aplicar(df, columnas)
+                estado.faltantes_manejados = True
+                print("✅ Valores faltantes gestionados correctamente.\n")
+            except Exception as e:
+                print(f"❌ Error al aplicar la estrategia: {e}")
+            break
 

@@ -42,7 +42,7 @@ def cargar_csv(estado):
         return
 
     try:
-        df = pd.read_csv(ruta, sep=None, engine="python", na_values=["", " ", "NA","N/A"])  # detecta delimitador
+        df = pd.read_csv(ruta, sep=None, engine="python", na_values=["", " ", None, "NA", "N/A", "null"])  # detecta delimitador
         _mostrar_info(df)
         estado.datos = df
         estado.nombre_archivo = os.path.basename(ruta)

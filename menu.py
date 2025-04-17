@@ -79,6 +79,7 @@ class MenuManager:
             opcion = input("Seleccione una opción: ")
             if opcion == "1":
                 mostrar_submenu_carga(self.estado)
+                self.estado.estado_columnas_seleccionadas = False
             elif opcion == "2":
                 mostrar_submenu_seleccion_columnas(self.estado)
             elif opcion == "2.1":
