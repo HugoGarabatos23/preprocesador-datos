@@ -3,7 +3,7 @@ from estado import AppState
 from selector_columnas import mostrar_submenu_seleccion_columnas
 from carga_datos import mostrar_submenu_carga
 from manejo_nulos import mostrar_submenu_manejo_nulos
-
+from transformacion_categorica import mostrar_submenu_transformacion_categorica
 
 
 class MenuManager:
@@ -89,6 +89,8 @@ class MenuManager:
                         mostrar_submenu_manejo_nulos(self.estado)
                     else: 
                         print("❌ Debe seleccionar columnas primero.")
+            elif opcion == "2.3":
+                mostrar_submenu_transformacion_categorica(self.estado)
 
             elif opcion == "5":
                 if self.confirmar_salida():
