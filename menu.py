@@ -2,6 +2,9 @@
 from estado import AppState
 from selector_columnas import mostrar_submenu_seleccion_columnas
 from carga_datos import mostrar_submenu_carga
+from manejo_nulos import mostrar_submenu_manejo_nulos
+
+
 
 class MenuManager:
     def __init__(self):
@@ -26,12 +29,35 @@ class MenuManager:
             elif not self.estado.estado_columnas_seleccionadas:
                 print("[-] 2. Preprocesado de datos (selección de columnas requerida)")
             else:
-                print("[✓] 2. Preprocesado de datos")
-                print("      [✓] 2.1 Selección de columnas (completado)")
-                print("      [✓] 2.2 Manejo de datos faltantes (completado)" if self.estado.faltantes_manejados else "      [-] 2.2 Manejo de datos faltantes (pendiente)")
-                print("      [✓] 2.3 Transformación de datos categóricos (completado)" if self.estado.transformacion_categorica else "      [✗] 2.3 Transformación de datos categóricos (pendiente)")
-                print("      [✓] 2.4 Normalización y escalado (completado)" if self.estado.normalizacion_completada else "      [✗] 2.4 Normalización y escalado (requiere transformación categórica)")
-                print("      [✓] 2.5 Detección y manejo de valores atípicos (completado)" if self.estado.outliers_manejados else "      [✗] 2.5 Detección y manejo de valores atípicos (requiere normalización)")
+                print("[-] 2. Preprocesado de datos")
+
+                if self.estado.estado_columnas_seleccionadas:
+                    print("      [✓] 2.1 Selección de columnas (completado)")
+                else:
+                    print("      [-] 2.1 Selección de columnas (pendiente)")
+
+                if self.estado.estado_columnas_seleccionadas and self.estado.faltantes_manejados:
+                    print("      [✓] 2.2 Manejo de datos faltantes (completado)")
+                elif self.estado.estado_columnas_seleccionadas:
+                    print("      [-] 2.2 Manejo de datos faltantes (pendiente)")
+                else:
+                    print("      [✗] 2.2 Manejo de datos faltantes (requiere selección de columnas)")
+
+                if self.estado.faltantes_manejados:
+                    print("      [✓] 2.3 Transformación de datos categóricos (completado)" if self.estado.transformacion_categorica else "      [-] 2.3 Transformación de datos categóricos (pendiente)")
+                else:
+                    print("      [✗] 2.3 Transformación de datos categóricos (requiere manejo de valores faltantes)")
+
+                if self.estado.transformacion_categorica:
+                    print("      [✓] 2.4 Normalización y escalado (completado)" if self.estado.normalizacion_completada else "      [-] 2.4 Normalización y escalado (pendiente)")
+                else:
+                    print("      [✗] 2.4 Normalización y escalado (requiere transformación categórica)")
+
+                if self.estado.normalizacion_completada:
+                    print("      [✓] 2.5 Detección y manejo de valores atípicos (completado)" if self.estado.outliers_manejados else "      [-] 2.5 Detección y manejo de valores atípicos (pendiente)")
+                else:
+                    print("      [✗] 2.5 Detección y manejo de valores atípicos (requiere normalización)")
+                    
 
             # Paso 3: Visualización
             if self.estado.preprocesado_completo():
@@ -53,8 +79,17 @@ class MenuManager:
             opcion = input("Seleccione una opción: ")
             if opcion == "1":
                 mostrar_submenu_carga(self.estado)
+                self.estado.estado_columnas_seleccionadas = False
             elif opcion == "2":
-                mostrar_submenu_seleccion_columnas(self.estado) 
+                mostrar_submenu_seleccion_columnas(self.estado)
+            elif opcion == "2.1":
+                mostrar_submenu_seleccion_columnas(self.estado)
+            elif opcion == "2.2":
+                    if self.estado.columnas_seleccionadas():
+                        mostrar_submenu_manejo_nulos(self.estado)
+                    else: 
+                        print("❌ Debe seleccionar columnas primero.")
+
             elif opcion == "5":
                 if self.confirmar_salida():
                     print("Cerrando la aplicación...")
