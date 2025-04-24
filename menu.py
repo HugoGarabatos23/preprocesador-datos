@@ -16,7 +16,7 @@ class MenuManager:
         # Mostrar solo una vez al iniciar
         print("\nBienvenido al Preprocesador de Datos")
         print("=====================================")
-        print("⚠️  Esta aplicación sigue un flujo de procesamiento paso a paso.")
+        print("⚠️   Esta aplicación sigue un flujo de procesamiento paso a paso.")
         print("No es posible volver a etapas anteriores sin reiniciar pasos posteriores.")
         print("Asegúrese de sus selecciones en cada etapa.\n")
         seguir = True
@@ -96,20 +96,56 @@ class MenuManager:
                 mostrar_submenu_carga(self.estado)
                 self.estado.estado_columnas_seleccionadas = False
             elif opcion == "2":
-                mostrar_submenu_seleccion_columnas(self.estado)
-            elif opcion == "2.1":
-                mostrar_submenu_seleccion_columnas(self.estado)
-            elif opcion == "2.2":
-                if self.estado.columnas_seleccionadas():
-                    mostrar_submenu_manejo_nulos(self.estado)
+                if not self.estado.datos_cargados():
+                    print(
+                        "❌ No se han cargado datos. Cargue un archivo antes de seleccionar columnas.")
+                elif self.estado.estado_columnas_seleccionadas:
+                    print(
+                        "⚠️  Las columnas ya han sido seleccionadas. No se puede volver atrás.")
                 else:
+                    mostrar_submenu_seleccion_columnas(self.estado)
+            elif opcion == "2.1":
+                if not self.estado.datos_cargados():
+                    print(
+                        "❌ No se han cargado datos. Cargue un archivo antes de seleccionar columnas.")
+                elif self.estado.estado_columnas_seleccionadas:
+                    print(
+                        "⚠️  Las columnas ya han sido seleccionadas. No se puede volver atrás.")
+                else:
+                    mostrar_submenu_seleccion_columnas(self.estado)
+            elif opcion == "2.2":
+                if self.estado.faltantes_manejados:
+                    print(
+                        "⚠️  Ya se ha completado el manejo de valores faltantes. Este paso no puede repetirse.")
+                elif not self.estado.columnas_seleccionadas():
                     print("❌ Debe seleccionar columnas primero.")
+                else:
+                    mostrar_submenu_manejo_nulos(self.estado)
+
             elif opcion == "2.3":
-                mostrar_submenu_transformacion_categorica(self.estado)
+                if not self.estado.faltantes_manejados:
+                    print(
+                        "❌ Error: Debe manejar los valores faltantes antes de transformar datos categóricos.")
+                elif self.estado.transformacion_categorica:
+                    print("⚠️  Ya se completó la transformación de datos categóricos.")
+                else:
+                    mostrar_submenu_transformacion_categorica(self.estado)
             elif opcion == "2.4":
-                mostrar_submenu_normalizacion(self.estado)
+                if self.estado.normalizacion_completada:
+                    print(
+                        "⚠️  Ya se ha completado la normalización. No puede repetirse.")
+                elif not self.estado.transformacion_categorica:
+                    print("❌ Debe completar la transformación categórica antes.")
+                else:
+                    mostrar_submenu_normalizacion(self.estado)
             elif opcion == "2.5":
-                mostrar_submenu_manejo_outliers(self.estado)
+                if not self.estado.normalizacion_completada:
+                    print(
+                        "❌ Error: Debe completar la normalización antes de detectar valores atípicos.")
+                elif self.estado.outliers_manejados:
+                    print("⚠️  Ya se completó la gestión de valores atípicos.")
+                else:
+                    mostrar_submenu_manejo_outliers(self.estado)
 
             elif opcion == "5":
                 if self.confirmar_salida():
