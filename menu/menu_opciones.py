@@ -61,7 +61,7 @@ def manejar_opcion(opcion, estado):
             print("Cerrando la aplicación...")
             return False
         else:
-            print("\nRegresando al menú principal...")
+            print("\nRegresando al menú principal...\n")
 
     else:
         print("Opción no disponible. Elija otra.")
