@@ -1,7 +1,7 @@
 from estado import AppState
 
 
-def mostrar_menu_principal(estado):
+def mostrar_menu_principal(estado: AppState):
     if estado.datos_cargados():
         print(f"[✓] 1. Cargar datos (archivo: {estado.nombre_archivo})")
     else:

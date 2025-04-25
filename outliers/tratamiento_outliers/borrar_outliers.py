@@ -1,4 +1,4 @@
-from outliers_interface import OutlierHandler
+from outliers.tratamiento_outliers.outliers_interface import OutlierHandler
 
 
 class RemoveOutliers(OutlierHandler):

@@ -1,4 +1,4 @@
-from menu import MenuManager
+from menu.menu import MenuManager
 
 if __name__ == "__main__":
     menu = MenuManager()

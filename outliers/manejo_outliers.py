@@ -1,6 +1,6 @@
-from borrar_outliers import RemoveOutliers
-from sustituir_outliers import ReplaceOutliersWithMedian
-from mantener_outliers import KeepOutliers
+from outliers.tratamiento_outliers.borrar_outliers import RemoveOutliers
+from outliers.tratamiento_outliers.sustituir_outliers import ReplaceOutliersWithMedian
+from outliers.tratamiento_outliers.mantener_outliers import KeepOutliers
 import pandas as pd
 from estado import AppState
 

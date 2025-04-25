@@ -1,7 +1,7 @@
 import pandas as pd
 from estado import AppState
-from estrategias_normalizacion.minmax_scaling import MinMaxScaling
-from estrategias_normalizacion.zscore_normalization import ZScoreNormalization
+from normalizacion.estrategias_normalizacion.minmax_scaling import MinMaxScaling
+from normalizacion.estrategias_normalizacion.zscore_normalization import ZScoreNormalization
 
 
 def mostrar_submenu_normalizacion(estado: AppState):
