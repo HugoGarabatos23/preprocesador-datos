@@ -20,19 +20,3 @@ class MenuManager:
             mostrar_menu_principal(self.estado)
             opcion = input("Seleccione una opción: ")
             seguir = manejar_opcion(opcion, self.estado)
-
-    def confirmar_salida(self):
-        print("\n=============================")
-        print("Salir de la Aplicación")
-        print("=============================")
-        print("¿Está seguro de que desea salir?")
-        print("  [1] Sí")
-        print("  [2] No")
-        while True:
-            opcion = input("Seleccione una opción: ")
-            if opcion == "1":
-                return True
-            elif opcion == "2":
-                return False
-            else:
-                print("Opción inválida. Intente de nuevo.")

@@ -57,8 +57,7 @@ def manejar_opcion(opcion, estado):
             mostrar_submenu_manejo_outliers(estado)
 
     elif opcion == "5":
-        confirmar = input("¿Estás seguro que quieres salir? (s/n): ")
-        if confirmar.lower() == "s":
+        if not confirmar_salida():
             print("Cerrando la aplicación...")
             return False
         else:
@@ -68,3 +67,20 @@ def manejar_opcion(opcion, estado):
         print("Opción no disponible. Elija otra.")
 
     return True
+
+
+def confirmar_salida():
+    print("\n=============================")
+    print("Salir de la Aplicación")
+    print("=============================")
+    print("¿Está seguro de que desea salir?")
+    print("  [1] Sí")
+    print("  [2] No")
+    while True:
+        opcion = input("Seleccione una opción: ")
+        if opcion == "1":
+            return False
+        elif opcion == "2":
+            return True
+        else:
+            print("Opción inválida. Intente de nuevo.")
