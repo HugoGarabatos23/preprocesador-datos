@@ -30,10 +30,10 @@ def mostrar_submenu_carga(estado: AppState) -> None:
         else:
             print("Opción inválida.")
 
-        
         # Si la carga fue exitosa, volvemos automáticamente
         if estado.datos_cargados():
             return
+
 
 def cargar_csv(estado):
     ruta = input("Ingrese la ruta del archivo CSV: ").strip()
@@ -42,13 +42,15 @@ def cargar_csv(estado):
         return
 
     try:
-        df = pd.read_csv(ruta, sep=None, engine="python", na_values=["", " ", None, "NA", "N/A", "null"])  # detecta delimitador
+        df = pd.read_csv(ruta, sep=None, engine="python", na_values=[
+                         "", " ", None, "NA", "N/A", "null"])  # detecta delimitador
         _mostrar_info(df)
         estado.datos = df
         estado.nombre_archivo = os.path.basename(ruta)
         print(" Datos cargados correctamente.\n")
     except Exception as e:
         print(f" Error al cargar el archivo CSV: {e}")
+
 
 def cargar_excel(estado):
     ruta = input("Ingrese la ruta del archivo Excel (.xlsx): ").strip()
@@ -70,6 +72,7 @@ def cargar_excel(estado):
         print(" Datos cargados correctamente.\n")
     except Exception as e:
         print(f" Error al cargar el archivo Excel: {e}")
+
 
 def cargar_sqlite(estado):
     ruta = input("Ingrese la ruta de la base de datos SQLite: ").strip()
@@ -102,6 +105,7 @@ def cargar_sqlite(estado):
         print(f"Error al cargar datos desde SQLite: {e}")
     finally:
         conn.close()
+
 
 def _mostrar_info(df):
     print("\nInformación del dataset:")

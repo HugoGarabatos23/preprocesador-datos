@@ -1,7 +1,7 @@
 # menu.py
 from estado import AppState
-from menu_render import mostrar_menu_principal
-from menu_opciones import manejar_opcion
+from menu.menu_render import mostrar_menu_principal
+from menu.menu_opciones import manejar_opcion
 
 
 class MenuManager:

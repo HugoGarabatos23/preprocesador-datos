@@ -1,6 +1,7 @@
 # estrategias_nulos/rellenar_constante.py
-from estrategias_nulos.estrategia_base import EstrategiaNulos
+from nulos.estrategias_nulos.estrategia_base import EstrategiaNulos
 import pandas as pd
+
 
 class RellenarConstante(EstrategiaNulos):
     def __init__(self, valor_constante):

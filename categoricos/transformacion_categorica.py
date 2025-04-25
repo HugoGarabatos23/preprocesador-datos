@@ -1,16 +1,17 @@
 from estado import AppState
-from estrategias_categoricas.one_hot_encoding import OneHotEncoding
-from estrategias_categoricas.label_encoding import LabelEncoding
+from categoricos.estrategias_categoricas.one_hot_encoding import OneHotEncoding
+from categoricos.estrategias_categoricas.label_encoding import LabelEncoding
+
 
 def mostrar_submenu_transformacion_categorica(estado: AppState):
-    
 
     if not estado.columnas_seleccionadas() or not estado.faltantes_manejados:
         print("❌ Error: Debe seleccionar columnas y manejar nulos antes de transformar.")
         return
 
     df = estado.datos
-    columnas_categoricas = [col for col in estado.features if df[col].dtype == "object" or df[col].dtype.name == "category"]
+    columnas_categoricas = [col for col in estado.features if df[col].dtype ==
+                            "object" or df[col].dtype.name == "category"]
 
     print("\n=============================")
     print("Transformación de Datos Categóricos")
@@ -24,7 +25,7 @@ def mostrar_submenu_transformacion_categorica(estado: AppState):
     print("Se han detectado columnas categóricas en las variables seleccionadas:")
     for col in columnas_categoricas:
         print(f"  - {col}")
-    
+
     estrategia = None
     transformacion = True
     while transformacion:
@@ -44,14 +45,14 @@ def mostrar_submenu_transformacion_categorica(estado: AppState):
             print("Opción inválida.")
             continue
 
-
         if estrategia is not None:
             try:
                 estado.datos = estrategia.transformar(df, columnas_categoricas)
-                # Actualizar features según las nuevas columnas del DataFrame 
+                # Actualizar features según las nuevas columnas del DataFrame
                 todas_columnas = set(estado.datos.columns)
                 target = estado.target
-                estado.features = list(todas_columnas - {target}) #target por separado
+                # target por separado
+                estado.features = list(todas_columnas - {target})
                 estado.transformacion_categorica = True
                 print("✅ Transformación completada con éxito.\n")
             except Exception as e:

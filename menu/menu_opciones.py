@@ -1,15 +1,14 @@
 # menu_opciones.py
-from selector_columnas import mostrar_submenu_seleccion_columnas
-from carga_datos import mostrar_submenu_carga
-from manejo_nulos import mostrar_submenu_manejo_nulos
-from transformacion_categorica import mostrar_submenu_transformacion_categorica
-from normalizacion import mostrar_submenu_normalizacion
-from manejo_outliers import mostrar_submenu_manejo_outliers
+from selector_columnas.selector_columnas import mostrar_submenu_seleccion_columnas
+from carga_datos.carga_datos import mostrar_submenu_carga
+from nulos.manejo_nulos import mostrar_submenu_manejo_nulos
+from categoricos.transformacion_categorica import mostrar_submenu_transformacion_categorica
+from normalizacion.normalizacion import mostrar_submenu_normalizacion
+from outliers.manejo_outliers import mostrar_submenu_manejo_outliers
 
 
 def manejar_opcion(opcion, estado):
     if opcion == "1":
-        from carga_datos import mostrar_submenu_carga
         mostrar_submenu_carga(estado)
         estado.estado_columnas_seleccionadas = False
 
@@ -29,7 +28,6 @@ def manejar_opcion(opcion, estado):
         elif not estado.columnas_seleccionadas():
             print("❌ Debe seleccionar columnas primero.")
         else:
-            from manejo_nulos import mostrar_submenu_manejo_nulos
             mostrar_submenu_manejo_nulos(estado)
 
     elif opcion == "2.3":
@@ -39,7 +37,6 @@ def manejar_opcion(opcion, estado):
         elif estado.transformacion_categorica:
             print("⚠️  Ya se completó la transformación de datos categóricos.")
         else:
-            from transformacion_categorica import mostrar_submenu_transformacion_categorica
             mostrar_submenu_transformacion_categorica(estado)
 
     elif opcion == "2.4":
@@ -48,7 +45,6 @@ def manejar_opcion(opcion, estado):
         elif not estado.transformacion_categorica:
             print("❌ Debe completar la transformación categórica antes.")
         else:
-            from normalizacion import mostrar_submenu_normalizacion
             mostrar_submenu_normalizacion(estado)
 
     elif opcion == "2.5":
@@ -58,7 +54,6 @@ def manejar_opcion(opcion, estado):
         elif estado.outliers_manejados:
             print("⚠️  Ya se completó la gestión de valores atípicos.")
         else:
-            from manejo_outliers import mostrar_submenu_manejo_outliers
             mostrar_submenu_manejo_outliers(estado)
 
     elif opcion == "5":

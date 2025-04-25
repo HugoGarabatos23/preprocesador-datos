@@ -1,21 +1,20 @@
 # manejo_nulos.py
 
 from estado import AppState
-from estrategias_nulos.eliminar_filas import EliminarFilas
-from estrategias_nulos.rellenar_media import RellenarMedia
-from estrategias_nulos.rellenar_constante import RellenarConstante
-from estrategias_nulos.rellenar_mediana import RellenarMediana
-from estrategias_nulos.rellenar_moda import RellenarModa
+from nulos.estrategias_nulos.eliminar_filas import EliminarFilas
+from nulos.estrategias_nulos.rellenar_media import RellenarMedia
+from nulos.estrategias_nulos.rellenar_constante import RellenarConstante
+from nulos.estrategias_nulos.rellenar_mediana import RellenarMediana
+from nulos.estrategias_nulos.rellenar_moda import RellenarModa
 # Puedes importar otras estrategias cuando las tengas
 
 import pandas as pd
+
 
 def mostrar_submenu_manejo_nulos(estado: AppState):
     if not estado.columnas_seleccionadas():
         print("❌ Error: Debe seleccionar columnas antes de manejar nulos.")
         return
-
- 
 
     df = estado.datos
     columnas = estado.features + [estado.target]
@@ -57,23 +56,25 @@ def mostrar_submenu_manejo_nulos(estado: AppState):
         elif opcion == "4":
             estrategia = RellenarModa()
         elif opcion == "5":
-            valor_input = input("Seleccione un valor constante para rellenar los nulos: ")
+            valor_input = input(
+                "Seleccione un valor constante para rellenar los nulos: ")
             try:
                 # intenta convertir a número si es posible
-                valor = float(valor_input) if valor_input.replace('.', '', 1).isdigit() else valor_input
+                valor = float(valor_input) if valor_input.replace(
+                    '.', '', 1).isdigit() else valor_input
                 estrategia = RellenarConstante(valor)
             except ValueError:
                 print("❌ Valor no válido.")
                 continue
-            
+
         elif opcion == "6":
             print("Volviendo al menú principal...")
             menu_nulos = False
-            
+
         else:
             print("Opción inválida.")
             continue
-            
+
         if estrategia is not None:
             try:
                 estado.datos = estrategia.aplicar(df, columnas)
@@ -82,4 +83,3 @@ def mostrar_submenu_manejo_nulos(estado: AppState):
             except Exception as e:
                 print(f"❌ Error al aplicar la estrategia: {e}")
             break
-

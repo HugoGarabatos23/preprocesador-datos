@@ -1,4 +1,4 @@
-from estrategias_normalizacion.estrategia_base import EstrategiaNormalizacion
+from normalizacion.estrategias_normalizacion.estrategia_base import EstrategiaNormalizacion
 import pandas as pd
 
 
