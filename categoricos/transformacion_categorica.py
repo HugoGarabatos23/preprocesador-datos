@@ -46,47 +46,53 @@ def mostrar_submenu_transformacion_categorica(estado: AppState):
 
         if estrategia is not None:
             try:
-                # Antes de transformar: advertir al usuario si algunas columnas tienen demasiados únicos
+                # Filtrar las columnas categóricas que necesitan transformación
                 columnas_categoricas_filtradas = []
-                for col in columnas_categoricas:
-                    n_unicos = df[col].nunique()
-                    if n_unicos > 40:
-                        print(
-                            f"\n⚠️  Atención: La columna '{col}' tiene {n_unicos} valores únicos.")
-                        print(
-                            "   El One-Hot Encoding podría crear muchísimas columnas adicionales, lo cual "
-                            "complicaría los siguientes pasos del pipeline.")
-                        decision = input(
-                            f"¿Desea incluir '{col}' en la transformación? (s/n): ").strip().lower()
-                        if decision == "s":
-                            columnas_categoricas_filtradas.append(col)
-                        else:
-                            print(
-                                f"🔵 '{col}' será excluida de la transformación.")
-                    else:
-                        columnas_categoricas_filtradas.append(col)
 
+                # Si la estrategia es One-Hot Encoding, pedimos confirmación para las columnas con más de 40 valores únicos
+                if isinstance(estrategia, OneHotEncoding):
+                    for col in columnas_categoricas:
+                        n_unicos = df[col].nunique()
+                        if n_unicos > 40:
+                            print(
+                                f"\n⚠️  Atención: La columna '{col}' tiene {n_unicos} valores únicos.")
+                            print(
+                                "   El One-Hot Encoding podría crear muchas columnas adicionales, lo cual complicaría los siguientes pasos.")
+                            decision = input(
+                                f"¿Desea incluir '{col}' en la transformación? (s/n): ").strip().lower()
+                            if decision == "s":
+                                columnas_categoricas_filtradas.append(col)
+                            else:
+                                print(
+                                    f"🔵 '{col}' será excluida de la transformación.")
+                        else:
+                            columnas_categoricas_filtradas.append(col)
+
+                # Si la estrategia es Label Encoding, no necesitamos la confirmación para las columnas
+                elif isinstance(estrategia, LabelEncoding):
+                    # Aplicamos Label Encoding a todas las categóricas sin excepción
+                    columnas_categoricas_filtradas = columnas_categoricas
+
+                # Aplicar la estrategia de transformación elegida
                 estado.datos = estrategia.transformar(
                     df, columnas_categoricas_filtradas)
 
-                # Actualizar las features correctamente después de transformar
-                # columnas despues del one-hot encoding
+                # Actualizar las features después de la transformación
                 columnas_actuales = set(estado.datos.columns)
-                # columnas antes del one hot
                 columnas_originales = set(df.columns)
-
                 nuevas_columnas = columnas_actuales - columnas_originales
 
                 # Mantener las columnas numéricas o no categóricas que ya eran features
                 columnas_no_categoricas = [
                     col for col in estado.features if col not in columnas_categoricas]
 
-                # Features actualizadas: antiguas no categóricas + columnas nuevas creadas por el OneHot
+                # Actualizamos las features con las nuevas columnas generadas por One-Hot Encoding (si aplica)
                 estado.features = columnas_no_categoricas + \
                     list(nuevas_columnas)
 
                 estado.transformacion_categorica = True
                 print("✅ Transformación completada con éxito.\n")
+
             except Exception as e:
                 print(f"❌ Error al aplicar la transformación: {e}")
             break
