@@ -61,7 +61,7 @@ def manejar_opcion(opcion, estado):
         if not estado.preprocesado_completo():
             print("❌ Completa el preprocesado antes de visualizar.")
         else:
-            Visualizacion(estado.datos).mostrar_submenu()
+            Visualizacion().mostrar_submenu_visualizacion(estado)
             estado.visualizacion_completada = True
 
     elif opcion == "5":

@@ -19,7 +19,7 @@ def mostrar_submenu_normalizacion(estado: AppState):
     columnas_booleanas = [
         col for col in estado.features if df[col].dtype == 'bool']
     if columnas_booleanas:
-        print(" ⚠️ Recordatorio :  Las columnas binarias o generadas por One-Hot Encoding no se normalizarán, ya que sus valores son binarios (0 o 1) y no requieren normalización.")
+        print("⚠️  Recordatorio :  Las columnas binarias o generadas por One-Hot Encoding no se normalizarán, ya que sus valores son binarios (0 o 1) y no requieren normalización.")
 
     print("\n=============================")
     print("Normalización y Escalado")

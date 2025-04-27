@@ -4,13 +4,11 @@ from .resumen_estadistico import ResumenEstadistico
 from .histogramas import Histograma
 from .dispersion import DispersionPlot
 from .heatmap import Heatmap
+from estado import AppState
 
 
 class Visualizacion:
-    def __init__(self, datos):
-        self.datos = datos
-
-    def mostrar_submenu_visualizacion(self):
+    def mostrar_submenu_visualizacion(self, estado: AppState):
         visualizacion = True
         while visualizacion:
             print("\n=============================")
@@ -25,16 +23,16 @@ class Visualizacion:
 
             if opcion == "1":
                 factory = ResumenEstadistico()
-                print(factory.crear_visualizacion(self.datos))
+                print(factory.crear_visualizacion(estado))
             elif opcion == "2":
                 factory = Histograma()
-                factory.crear_visualizacion(self.datos)
+                factory.crear_visualizacion(estado)
             elif opcion == "3":
                 factory = DispersionPlot()
-                factory.crear_visualizacion(self.datos)
+                factory.crear_visualizacion(estado)
             elif opcion == "4":
                 factory = Heatmap()
-                factory.crear_visualizacion(self.datos)
+                factory.crear_visualizacion(estado)
             elif opcion == "5":
                 visualizacion = False
             else:

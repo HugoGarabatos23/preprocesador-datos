@@ -4,14 +4,11 @@ import matplotlib.pyplot as plt
 
 
 class Histograma:
-    def __init__(self, datos):
-        self.datos = datos
-
-    def crear_visualizacion(self):
-        estado = AppState()
+    def crear_visualizacion(self, estado: AppState):
+        datos = estado.datos
 
         columnas_numericas = [
-            col for col in self.datos.columns if self.datos[col].dtype in ['int64', 'float64']]
+            col for col in datos.columns if datos[col].dtype in ['int64', 'float64']]
 
         if not columnas_numericas:
             print("❌ No hay columnas numéricas para crear un histograma.")
@@ -19,7 +16,7 @@ class Histograma:
 
         for col in columnas_numericas:
             plt.figure(figsize=(8, 6))
-            self.datos[col].hist(bins=20, edgecolor='black')
+            datos[col].hist(bins=20, edgecolor='black')
             plt.title(f"Histograma de {col}")
             plt.xlabel(col)
             plt.ylabel("Frecuencia")

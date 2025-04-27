@@ -1,12 +1,9 @@
-# preprocesador_datos/visualizacion/resumen_estadistico.py
-
-import pandas as pd
 from estado import AppState
 
 
 class ResumenEstadistico:
-    def crear_visualizacion(self, datos):
-        estado = AppState()
+    def crear_visualizacion(self, estado: AppState):
+        datos = estado.datos
         print("\n📊 Resumen Estadístico de los Datos")
         print("------------------------------------")
         # Incluye numéricas y categóricas
