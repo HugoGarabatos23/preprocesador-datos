@@ -5,6 +5,7 @@ from nulos.manejo_nulos import mostrar_submenu_manejo_nulos
 from categoricos.transformacion_categorica import mostrar_submenu_transformacion_categorica
 from normalizacion.normalizacion import mostrar_submenu_normalizacion
 from outliers.manejo_outliers import mostrar_submenu_manejo_outliers
+from visualizacion.visualizacion import Visualizacion
 
 
 def manejar_opcion(opcion, estado):
@@ -55,6 +56,13 @@ def manejar_opcion(opcion, estado):
             print("⚠️  Ya se completó la gestión de valores atípicos.")
         else:
             mostrar_submenu_manejo_outliers(estado)
+
+    elif opcion == "3":
+        if not estado.preprocesado_completo():
+            print("❌ Completa el preprocesado antes de visualizar.")
+        else:
+            Visualizacion(estado.datos).mostrar_submenu()
+            estado.visualizacion_completada = True
 
     elif opcion == "5":
         if not confirmar_salida():
