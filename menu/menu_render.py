@@ -47,14 +47,19 @@ def mostrar_menu_principal(estado: AppState):
                 "      [✗] 2.5 Detección y manejo de valores atípicos (requiere normalización)")
 
     # Paso 3: Visualización
-    if estado.preprocesado_completo():
+    if estado.visualizacion_completa():
         print("[✓] 3. Visualización de datos")
+    elif estado.preprocesado_completo():
+        print("[-] 3. Visualización de datos (pendiente)")
     else:
         print("[✗] 3. Visualización de datos (requiere preprocesado completo)")
 
     # Paso 4: Exportar
-    if estado.preprocesado_completo():
+    if estado.exportacion_completa():
         print("[✓] 4. Exportar datos")
+
+    elif estado.visualizacion_completa():
+        print("[-] 4. Exportar datos")
     else:
         print("[✗] 4. Exportar datos (requiere preprocesado completo)")
 

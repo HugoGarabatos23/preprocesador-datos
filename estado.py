@@ -15,18 +15,25 @@ class AppState:
             cls._instancia.transformacion_categorica = False
             cls._instancia.normalizacion_completada = False
             cls._instancia.outliers_manejados = False
+
+            # Inicializar estados de visualizacion
+            cls._instancia.dispersion = False
+            cls._instancia.heatmap = False
+            cls._instancia.resumen_estadistico = False
+            cls._instancia.histograma = False
+
         return cls._instancia
 
     def datos_cargados(self):
         return self.datos is not None and not self.datos.empty
-    
+
     def columnas_seleccionadas(self):
         return (
-        self.datos_cargados()
-        and self.features
-        and self.target
-        and self.target not in self.features
-    )
+            self.datos_cargados()
+            and self.features
+            and self.target
+            and self.target not in self.features
+        )
 
     def reset_columnas(self):
         self.features = []
@@ -37,7 +44,7 @@ class AppState:
             return f"Features = {self.features}, Target = {self.target}"
         else:
             return "No se han seleccionado columnas de entrada/salida correctamente."
-        
+
     def preprocesado_completo(self):
         return (
             self.estado_columnas_seleccionadas and
@@ -45,4 +52,15 @@ class AppState:
             self.transformacion_categorica and
             self.normalizacion_completada and
             self.outliers_manejados
-            )
+        )
+
+    def visualizacion_completa(self):
+        return (
+            self.dispersion or
+            self.heatmap or
+            self.resumen_estadistico or
+            self.histograma
+        )
+
+    def exportacion_completa(self):
+        pass
