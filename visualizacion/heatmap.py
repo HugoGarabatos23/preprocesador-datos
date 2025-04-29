@@ -4,11 +4,11 @@ from estado import AppState
 
 
 class Heatmap:
-    def crear_visualizacion(self, datos):
+    def crear_visualizacion(self, estado: AppState):
         """
         Crea un heatmap basado en la correlación entre las columnas numéricas de los datos.
         """
-        estado = AppState()
+        datos = estado.datos
         try:
             # Seleccionar solo columnas numéricas
             datos_numericos = datos.select_dtypes(include=['float64', 'int64'])
