@@ -56,7 +56,7 @@ def mostrar_menu_principal(estado: AppState):
 
     # Paso 4: Exportar
     if estado.exportacion_completa():
-        print("[✓] 4. Exportar datos")
+        print("[✓] 4. Exportar datos (completado)")
 
     elif estado.visualizacion_completa():
         print("[-] 4. Exportar datos")

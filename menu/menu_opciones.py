@@ -6,6 +6,7 @@ from categoricos.transformacion_categorica import mostrar_submenu_transformacion
 from normalizacion.normalizacion import mostrar_submenu_normalizacion
 from outliers.manejo_outliers import mostrar_submenu_manejo_outliers
 from visualizacion.visualizacion import Visualizacion
+from exportacion.exportar_datos import mostrar_submenu_exportacion
 
 
 def manejar_opcion(opcion, estado):
@@ -62,7 +63,12 @@ def manejar_opcion(opcion, estado):
             print("❌ Completa el preprocesado antes de visualizar.")
         else:
             Visualizacion().mostrar_submenu_visualizacion(estado)
-            estado.visualizacion_completada = True
+    elif opcion == "4":
+        if not estado.visualizacion_completa() and not estado.preprocesado_completo():
+            print("❌ No es posible exportar los datos hasta que se complete el preprocesado y la visualización. \
+            Por favor, finalice todas las etapas antes de continuar..")
+        else:
+            mostrar_submenu_exportacion(estado)
 
     elif opcion == "5":
         if not confirmar_salida():
