@@ -34,6 +34,9 @@ def mostrar_submenu_normalizacion(estado: AppState):
     for col in columnas_numericas:
         print(f"  - {col}")
 
+    # Guardar los datos antes de cualquier normalización de cara al gráfico de dispersión
+    estado.datos_sin_normalizar = df.copy()
+
     estrategia = None
     normalizacion = True
     while normalizacion:
