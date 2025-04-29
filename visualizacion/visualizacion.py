@@ -23,7 +23,7 @@ class Visualizacion:
 
             if opcion == "1":
                 factory = ResumenEstadistico()
-                print(factory.crear_visualizacion(estado))
+                factory.crear_visualizacion(estado)
             elif opcion == "2":
                 factory = Histograma()
                 factory.crear_visualizacion(estado)
