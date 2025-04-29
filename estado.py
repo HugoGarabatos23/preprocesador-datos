@@ -22,6 +22,10 @@ class AppState:
             cls._instancia.resumen_estadistico = False
             cls._instancia.histograma = False
 
+            # Inicializar estados de exportacion
+            cls._instancia.formato_csv = False
+            cls._instancia.formato_xlsx = False
+
         return cls._instancia
 
     def datos_cargados(self):
@@ -63,4 +67,7 @@ class AppState:
         )
 
     def exportacion_completa(self):
-        pass
+        return (
+            self.formato_csv or
+            self.formato_xlsx
+        )
