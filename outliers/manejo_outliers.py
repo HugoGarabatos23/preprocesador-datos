@@ -11,8 +11,6 @@ def mostrar_submenu_manejo_outliers(estado: AppState):
             "❌ Error: Debe completar la normalización antes de detectar valores atípicos.")
         return
 
-    print(estado.datos.dtypes)
-
     # evaluaremos los outliers en columnas numericas y con valores únicos superiores a 2, así descartamos columnas binarias
     columnas_numericas = [
         col for col in estado.features
