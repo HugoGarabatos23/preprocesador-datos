@@ -5,6 +5,7 @@ class AppState:
         if cls._instancia is None:
             cls._instancia = super().__new__(cls)
             cls._instancia.datos = None
+            cls._instancia.datos_sin_normalizar = None
             cls._instancia.nombre_archivo = None
             cls._instancia.features = []
             cls._instancia.target = None
