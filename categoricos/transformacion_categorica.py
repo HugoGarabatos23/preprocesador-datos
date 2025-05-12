@@ -72,6 +72,8 @@ def mostrar_submenu_transformacion_categorica(estado: AppState):
                 elif isinstance(estrategia, LabelEncoding):
                     # Aplicamos Label Encoding a todas las categóricas sin excepción
                     columnas_categoricas_filtradas = columnas_categoricas
+                    # Guardamos columnas codificadas (sobreescritas)
+                    estado.columnas_codificadas = columnas_categoricas_filtradas
 
                 # Aplicar la estrategia de transformación elegida
                 estado.datos = estrategia.transformar(
@@ -89,6 +91,13 @@ def mostrar_submenu_transformacion_categorica(estado: AppState):
                 # Actualizamos las features con las nuevas columnas generadas por One-Hot Encoding (si aplica)
                 estado.features = columnas_no_categoricas + \
                     list(nuevas_columnas)
+
+                # Detectar y guardar las columnas binarias generadas por One-Hot Encoding, para no visualizarlas mas tarde
+                columnas_binarias = [
+                    col for col in nuevas_columnas
+                    if set(estado.datos[col].unique()) <= {0, 1}
+                ]
+                estado.columnas_binarias = columnas_binarias
 
                 estado.transformacion_categorica = True
                 print("✅ Transformación completada con éxito.\n")

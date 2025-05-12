@@ -18,6 +18,8 @@ class DispersionPlot:
             features = estado.features
 
             for feature in features:
+                if feature in estado.columnas_binarias:
+                    continue
                 if feature not in datos_sin_normalizacion.columns or feature not in datos_norm.columns:
                     continue
                 if not pd.api.types.is_numeric_dtype(datos_sin_normalizacion[feature]):
