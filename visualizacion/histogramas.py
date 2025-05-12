@@ -7,14 +7,17 @@ class Histograma:
     def crear_visualizacion(self, estado: AppState):
         datos = estado.datos
 
-        columnas_numericas = [
-            col for col in datos.columns if datos[col].dtype in ['int64', 'float64']]
+        # Usar solo las features numéricas y transformadas
+        columnas_validas = [
+            col for col in estado.features
+            if datos[col].dtype in ['int64', 'float64'] and col not in estado.columnas_binarias and col not in estado.columnas_codificadas
+        ]
 
-        if not columnas_numericas:
-            print("❌ No hay columnas numéricas para crear un histograma.")
+        if not columnas_validas:
+            print("❌ No hay columnas numéricas adecuadas para crear un histograma.")
             return
 
-        for col in columnas_numericas:
+        for col in columnas_validas:
             plt.figure(figsize=(8, 6))
             datos[col].hist(bins=20, edgecolor='black')
             plt.title(f"Histograma de {col}")

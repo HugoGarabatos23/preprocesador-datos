@@ -4,7 +4,7 @@ import pandas as pd
 
 class ResumenEstadistico:
     def crear_visualizacion(self, estado: AppState):
-        datos = estado.datos
+        datos = estado.datos[estado.features + [estado.target]]
 
         print("\n📊 Resumen Estadístico de los Datos")
         print("-" * 60)
@@ -14,8 +14,14 @@ class ResumenEstadistico:
         columnas_categoricas = datos.select_dtypes(
             include=["object", "category", "bool"]).columns
 
+        # Filtrar columnas numéricas válidas (descartando codificadas y binarias)
+        columnas_numericas_validas = [
+            col for col in columnas_numericas
+            if col not in estado.columnas_codificadas and col not in estado.columnas_binarias
+        ]
+
         # Estadísticas para numéricas
-        if not columnas_numericas.empty:
+        if columnas_numericas_validas:
             print("\n📈 Variables Numéricas:")
             resumen_numerico = pd.DataFrame({
                 "Media": datos[columnas_numericas].mean(),
@@ -26,6 +32,17 @@ class ResumenEstadistico:
                 "Mínimo": datos[columnas_numericas].min(),
                 "Máximo": datos[columnas_numericas].max(),
             })
+
+            if estado.columnas_codificadas or estado.columnas_binarias:
+                print(
+                    "\n Se han excluido del resumen estadístico las siguientes columnas transformadas desde variables categóricas:")
+                if estado.columnas_codificadas:
+                    print(
+                        f" Codificadas con Label Encoding: {estado.columnas_codificadas}\n")
+                if estado.columnas_binarias:
+                    print(
+                        f" Generadas con One-Hot Encoding (columnas binarias): {estado.columnas_binarias}\n")
+
             print(resumen_numerico.round(2))
 
         # Distribuciones categóricas

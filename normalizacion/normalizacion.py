@@ -12,13 +12,11 @@ def mostrar_submenu_normalizacion(estado: AppState):
     df = estado.datos
     columnas_numericas = [
         col for col in estado.features
-        if pd.api.types.is_numeric_dtype(df[col]) and not pd.api.types.is_bool_dtype(df[col])
+        if pd.api.types.is_numeric_dtype(df[col]) and col not in estado.columnas_binarias
     ]
 
     # Verificar si existen columnas booleanas generadas por One-Hot Encoding
-    columnas_booleanas = [
-        col for col in estado.features if df[col].dtype == 'bool']
-    if columnas_booleanas:
+    if estado.columnas_binarias:
         print("⚠️  Recordatorio :  Las columnas binarias o generadas por One-Hot Encoding no se normalizarán, ya que sus valores son binarios (0 o 1) y no requieren normalización.")
 
     print("\n=============================")

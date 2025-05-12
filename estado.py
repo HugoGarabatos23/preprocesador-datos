@@ -16,6 +16,8 @@ class AppState:
             cls._instancia.transformacion_categorica = False
             cls._instancia.normalizacion_completada = False
             cls._instancia.outliers_manejados = False
+            cls._instancia.columnas_binarias = []
+            cls._instancia.columnas_codificadas = []
 
             # Inicializar estados de visualizacion
             cls._instancia.dispersion = False
