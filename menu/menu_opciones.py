@@ -12,7 +12,6 @@ from exportacion.exportar_datos import mostrar_submenu_exportacion
 def manejar_opcion(opcion, estado):
     if opcion == "1":
         mostrar_submenu_carga(estado)
-        estado.estado_columnas_seleccionadas = False
 
     elif opcion == "2" or opcion == "2.1":
         if not estado.datos_cargados():
@@ -66,7 +65,7 @@ def manejar_opcion(opcion, estado):
     elif opcion == "4":
         if not estado.visualizacion_completa() and not estado.preprocesado_completo():
             print("❌ No es posible exportar los datos hasta que se complete el preprocesado y la visualización. \
-            Por favor, finalice todas las etapas antes de continuar..")
+            \nPor favor, finalice todas las etapas antes de continuar..")
         else:
             mostrar_submenu_exportacion(estado)
 
