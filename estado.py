@@ -4,30 +4,7 @@ class AppState:
     def __new__(cls):
         if cls._instancia is None:
             cls._instancia = super().__new__(cls)
-            cls._instancia.datos = None
-            cls._instancia.datos_sin_normalizar = None
-            cls._instancia.nombre_archivo = None
-            cls._instancia.features = []
-            cls._instancia.target = None
-
-            # Inicializar estados de preprocesamiento
-            cls._instancia.estado_columnas_seleccionadas = False
-            cls._instancia.faltantes_manejados = False
-            cls._instancia.transformacion_categorica = False
-            cls._instancia.normalizacion_completada = False
-            cls._instancia.outliers_manejados = False
-            cls._instancia.columnas_binarias = []
-            cls._instancia.columnas_codificadas = []
-
-            # Inicializar estados de visualizacion
-            cls._instancia.dispersion = False
-            cls._instancia.heatmap = False
-            cls._instancia.resumen_estadistico = False
-            cls._instancia.histograma = False
-
-            # Inicializar estados de exportacion
-            cls._instancia.formato_csv = False
-            cls._instancia.formato_xlsx = False
+            cls._instancia.iniciar_estado()
 
         return cls._instancia
 
@@ -52,6 +29,15 @@ class AppState:
         else:
             return "No se han seleccionado columnas de entrada/salida correctamente."
 
+    def preprocesamiento_iniciado(self):
+        return (
+            self.estado_columnas_seleccionadas or
+            self.faltantes_manejados or
+            self.transformacion_categorica or
+            self.normalizacion_completada or
+            self.outliers_manejados
+        )
+
     def preprocesado_completo(self):
         return (
             self.estado_columnas_seleccionadas and
@@ -74,3 +60,29 @@ class AppState:
             self.formato_csv or
             self.formato_xlsx
         )
+
+    def iniciar_estado(self):
+        self.datos = None
+        self.datos_sin_normalizar = None
+        self.nombre_archivo = None
+        self.features = []
+        self.target = None
+
+        # Estados de preprocesamiento
+        self.estado_columnas_seleccionadas = False
+        self.faltantes_manejados = False
+        self.transformacion_categorica = False
+        self.normalizacion_completada = False
+        self.outliers_manejados = False
+        self.columnas_binarias = []
+        self.columnas_codificadas = []
+
+        # Estados de visualización
+        self.dispersion = False
+        self.heatmap = False
+        self.resumen_estadistico = False
+        self.histograma = False
+
+        # Estados de exportación
+        self.formato_csv = False
+        self.formato_xlsx = False

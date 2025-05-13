@@ -7,6 +7,25 @@ from estado import AppState
 
 
 def mostrar_submenu_carga(estado: AppState) -> None:
+
+    # Si el preprocesamiento ya se ha iniciado, solicitar confirmación para reiniciar
+    if estado.preprocesamiento_iniciado():
+        print("⚠️ Ya ha comenzado el preprocesamiento.")
+
+        while True:
+            confirmar = input(
+                "¿Desea reiniciar todo el proceso y cargar nuevos datos? [s/n]: ").strip().lower()
+
+            if confirmar == "n":
+                print("🚫 Operación cancelada.\n")
+                return
+            elif confirmar == "s":
+                print("🔄 Reiniciando estado del sistema...")
+                estado.iniciar_estado()
+                break
+            else:
+                print("❌ Entrada no válida. Por favor escriba 's' o 'n'.")
+
     volver = False
     while not volver:
         print("\n=============================")
