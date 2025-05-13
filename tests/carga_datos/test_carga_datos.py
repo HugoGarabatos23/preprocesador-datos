@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 from unittest.mock import patch, MagicMock
-from carga_datos import mostrar_submenu_carga, cargar_csv, cargar_excel, cargar_sqlite
+from carga_datos.carga_datos import mostrar_submenu_carga, cargar_csv, cargar_excel, cargar_sqlite
 from estado import AppState
 
 

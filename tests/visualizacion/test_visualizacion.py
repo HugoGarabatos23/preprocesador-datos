@@ -2,10 +2,10 @@ import pytest
 from unittest.mock import patch
 import pandas as pd
 from estado import AppState
-from preprocesador_datos.visualizacion.dispersion import DispersionPlot
-from preprocesador_datos.visualizacion.heatmap import Heatmap
-from preprocesador_datos.visualizacion.histogramas import Histograma
-from preprocesador_datos.visualizacion.resumen_estadistico import ResumenEstadistico
+from visualizacion.dispersion import DispersionPlot
+from visualizacion.heatmap import Heatmap
+from visualizacion.histogramas import Histograma
+from visualizacion.resumen_estadistico import ResumenEstadistico
 
 
 @pytest.fixture
