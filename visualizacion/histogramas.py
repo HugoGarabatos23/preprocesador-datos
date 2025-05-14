@@ -10,7 +10,7 @@ class Histograma:
         # Usar solo las features numéricas y transformadas
         columnas_validas = [
             col for col in estado.features
-            if datos[col].dtype in ['int64', 'float64'] and col not in estado.columnas_binarias and col not in estado.columnas_codificadas
+            if datos[col].dtype in ['int64', 'float64']
         ]
 
         if not columnas_validas:

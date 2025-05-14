@@ -62,6 +62,7 @@ class AppState:
         )
 
     def iniciar_estado(self):
+        # Solo se asigna al iniciar la normalización, para comparar gráficamente
         self.datos = None
         self.datos_sin_normalizar = None
         self.nombre_archivo = None
