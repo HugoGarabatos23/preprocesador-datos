@@ -1,5 +1,3 @@
-# preprocesador_datos/visualizacion/factory_visualizacion.py
-
 from .resumen_estadistico import ResumenEstadistico
 from .histogramas import Histograma
 from .dispersion import DispersionPlot
@@ -9,6 +7,31 @@ from estado import AppState
 
 class Visualizacion:
     def mostrar_submenu_visualizacion(self, estado: AppState):
+        """
+        Muestra un submenú interactivo para que el usuario seleccione distintos tipos 
+        de visualización de datos en la aplicación.
+
+        El menú ofrece opciones para:
+          - Resumen estadístico
+          - Histogramas
+          - Gráficos de dispersión (antes y después del preprocesamiento)
+          - Heatmap (mapa de calor)
+          - Volver al menú principal
+
+        Parámetros:
+        -----------
+        estado : AppState
+            Objeto que contiene el estado actual de la aplicación, incluyendo 
+            los datos y configuraciones necesarias para generar las visualizaciones.
+
+        Flujo:
+        -------
+        - Se muestra un menú con las opciones disponibles.
+        - Según la opción seleccionada, se crea y muestra la visualización correspondiente.
+        - El menú se repite hasta que el usuario seleccione la opción para volver al menú principal.
+         - En caso de opción inválida, muestra un mensaje de error y vuelve a mostrar el menú.
+        """
+
         visualizacion = True
         while visualizacion:
             print("\n=============================")

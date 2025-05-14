@@ -1,4 +1,3 @@
-# menu_opciones.py
 from selector_columnas.selector_columnas import mostrar_submenu_seleccion_columnas
 from carga_datos.carga_datos import mostrar_submenu_carga
 from nulos.manejo_nulos import mostrar_submenu_manejo_nulos
@@ -7,6 +6,14 @@ from normalizacion.normalizacion import mostrar_submenu_normalizacion
 from outliers.manejo_outliers import mostrar_submenu_manejo_outliers
 from visualizacion.visualizacion import Visualizacion
 from exportacion.exportar_datos import mostrar_submenu_exportacion
+
+"""
+Módulo encargado de manejar la lógica de navegación según la opción elegida en el menú principal.
+
+Este módulo contiene funciones que controlan el flujo de ejecución
+según las elecciones del usuario. Valida el estado de la aplicación antes
+de permitir avanzar a cada etapa del pipeline de preprocesamiento de datos.
+"""
 
 
 def manejar_opcion(opcion, estado):

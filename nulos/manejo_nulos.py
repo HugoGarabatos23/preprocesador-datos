@@ -1,5 +1,3 @@
-# manejo_nulos.py
-
 from estado import AppState
 from nulos.estrategias_nulos.eliminar_filas import EliminarFilas
 from nulos.estrategias_nulos.rellenar_media import RellenarMedia
@@ -12,6 +10,29 @@ import pandas as pd
 
 
 def mostrar_submenu_manejo_nulos(estado: AppState):
+    """
+    Muestra el submenú para manejar valores faltantes en las columnas seleccionadas.
+
+    Comprueba que se hayan seleccionado columnas previamente.
+    Detecta columnas con valores faltantes y muestra la cantidad por columna.
+    Permite al usuario elegir entre varias estrategias para manejar los nulos:
+      - Eliminar filas con valores faltantes
+      - Rellenar con la media, mediana o moda de la columna
+      - Rellenar con un valor constante proporcionado por el usuario
+
+    Aplica la estrategia seleccionada y actualiza el estado indicando que el manejo de nulos fue completado.
+    Si no hay valores faltantes, marca la etapa como completada sin modificar los datos.
+
+    Parámetros:
+    -----------
+    estado : AppState
+        Objeto que mantiene el estado global de la aplicación, incluyendo datos, columnas seleccionadas y flags de avance.
+
+    Retorna:
+    --------
+    None
+    """
+
     if not estado.columnas_seleccionadas():
         print("❌ Error: Debe seleccionar columnas antes de manejar nulos.")
         return

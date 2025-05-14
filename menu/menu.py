@@ -13,7 +13,7 @@ class MenuManager:
         print("\nBienvenido al Preprocesador de Datos")
         print("=====================================")
         print("⚠️   Esta aplicación sigue un flujo de procesamiento paso a paso.")
-        print("No es posible volver a etapas anteriores sin reiniciar pasos posteriores.")
+        print("No es posible volver a etapas anteriores, excepto si se carga un archivo de nuevo, lo cual reiniciará el programa por completo.")
         print("Asegúrese de sus selecciones en cada etapa.\n")
         seguir = True
         while seguir:
