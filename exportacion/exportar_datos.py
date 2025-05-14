@@ -1,8 +1,29 @@
-# exportacion/exportar_datos.py
 from exportacion.exportador_factory import crear_exportador
 
 
 def mostrar_submenu_exportacion(estado):
+    """
+    Muestra el submenú interactivo para exportar los datos procesados.
+
+    Requiere que el preprocesamiento y la visualización estén completos 
+    para habilitar la exportación. Permite elegir entre exportar en formato 
+    CSV o Excel, y solicita el nombre del archivo de salida.
+
+    Parámetros:
+    -----------
+    estado : AppState
+        Instancia que contiene el estado actual de la aplicación, incluyendo 
+        los datos y estados de preprocesamiento y visualización.
+
+    Comportamiento:
+    ---------------
+    - Verifica que el preprocesamiento y la visualización estén completos.
+    - Presenta un menú para seleccionar el formato de exportación o regresar.
+    - Solicita al usuario el nombre del archivo sin extensión.
+    - Utiliza la fábrica de exportadores para obtener el objeto adecuado.
+    - Intenta exportar los datos y notifica éxito o error.
+    - Permite volver al menú principal.
+    """
     if not estado.preprocesado_completo() or not estado.visualizacion_completa:
         print("❌ No es posible exportar los datos hasta completar el preprocesado y la visualización.")
         return

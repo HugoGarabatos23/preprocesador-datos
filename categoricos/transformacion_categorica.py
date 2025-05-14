@@ -4,6 +4,20 @@ from categoricos.estrategias_categoricas.label_encoding import LabelEncoding
 
 
 def mostrar_submenu_transformacion_categorica(estado: AppState):
+    """
+    Muestra el submenú de transformación de datos categóricos.
+
+    Esta función gestiona la interacción con el usuario para aplicar una estrategia
+    de transformación sobre columnas categóricas de las variables de entrada.
+    Permite seleccionar entre One-Hot Encoding y Label Encoding, aplicando la
+    transformación elegida solo si se han seleccionado columnas y se han manejado
+    previamente los valores nulos. También actualiza el estado de las columnas
+    codificadas y las nuevas features generadas.
+
+    Parámetros:
+    - estado (AppState): Objeto que contiene el estado actual del pipeline,
+      incluyendo los datos cargados, columnas seleccionadas y configuraciones.
+    """
 
     if not estado.columnas_seleccionadas() or not estado.faltantes_manejados:
         print("❌ Error: Debe seleccionar columnas y manejar nulos antes de transformar.")

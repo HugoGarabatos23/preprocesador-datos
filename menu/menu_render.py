@@ -1,5 +1,13 @@
 from estado import AppState
 
+"""
+Módulo encargado de renderizar el menú principal del pipeline de preprocesamiento.
+
+Este módulo muestra el estado actual del flujo de trabajo, indicando visualmente qué
+etapas están completas, pendientes o bloqueadas. Sirve como guía visual para que
+el usuario entienda qué pasos puede realizar y en qué orden.
+"""
+
 
 def mostrar_menu_principal(estado: AppState):
     if estado.datos_cargados():

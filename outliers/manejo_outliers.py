@@ -6,6 +6,31 @@ from estado import AppState
 
 
 def mostrar_submenu_manejo_outliers(estado: AppState):
+    """
+    Muestra el submenú para la detección y manejo de valores atípicos (outliers) en las columnas numéricas seleccionadas.
+
+    Requiere que la normalización de datos haya sido completada previamente.
+    Evalúa columnas numéricas con más de dos valores únicos para evitar columnas binarias.
+    Realiza una detección preliminar de outliers y muestra un reporte si se encuentran.
+    Permite al usuario elegir entre las siguientes estrategias:
+      - Eliminar filas con valores atípicos
+      - Reemplazar valores atípicos con la mediana de la columna
+      - Mantener los valores atípicos sin cambios
+      - Volver al menú principal sin aplicar cambios
+
+    Aplica la estrategia seleccionada y actualiza el estado con los datos procesados y el flag de outliers manejados.
+    Si no se detectan outliers, marca la etapa como completada sin modificar los datos.
+
+    Parámetros:
+    -----------
+    estado : AppState
+        Objeto que mantiene el estado global de la aplicación, incluyendo datos, columnas seleccionadas y flags de avance.
+
+    Retorna:
+    --------
+    None
+    """
+
     if not estado.normalizacion_completada:
         print(
             "❌ Error: Debe completar la normalización antes de detectar valores atípicos.")

@@ -1,4 +1,21 @@
 class AppState:
+    """
+    Clase singleton que mantiene el estado global de la aplicación de preprocesamiento de datos.
+
+    Esta clase almacena los datos cargados, las columnas seleccionadas para
+    features y target, y el estado de cada etapa del pipeline:
+    - Selección de columnas
+    - Manejo de valores faltantes
+    - Transformación categórica
+    - Normalización
+    - Detección y manejo de outliers
+    - Visualización
+    - Exportación
+
+    Provee métodos para verificar si se han completado ciertas etapas, 
+    para resetear columnas y para obtener el estado actual del preprocesamiento.
+    """
+
     _instancia = None
 
     def __new__(cls):

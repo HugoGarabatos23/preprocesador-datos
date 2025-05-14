@@ -1,4 +1,3 @@
-# exportacion/estrategias_exportacion/exportador_base.py
 from abc import ABC, abstractmethod
 import pandas as pd
 

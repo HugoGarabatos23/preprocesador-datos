@@ -1,4 +1,3 @@
-# exportacion/exportador_factory.py
 from exportacion.tipos_exportacion.exportador_csv import ExportadorCSV
 from exportacion.tipos_exportacion.exportador_excel import ExportadorExcel
 

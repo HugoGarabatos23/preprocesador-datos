@@ -5,6 +5,29 @@ from normalizacion.estrategias_normalizacion.zscore_normalization import ZScoreN
 
 
 def mostrar_submenu_normalizacion(estado: AppState):
+    """
+    Muestra el submenú de normalización y escalado para las columnas numéricas seleccionadas.
+
+    Verifica que se hayan seleccionado columnas y que se haya completado la transformación categórica.
+    Excluye columnas binarias o generadas por One-Hot Encoding de la normalización.
+
+    Permite al usuario elegir entre las estrategias:
+      - Min-Max Scaling: escala valores entre 0 y 1.
+      - Z-score Normalization: centra datos con media 0 y desviación estándar 1.
+
+    Aplica la estrategia elegida a los datos y actualiza el estado indicando que la normalización se completó.
+
+    Si no hay columnas numéricas, marca la normalización como completada sin hacer cambios.
+
+    Parámetros:
+    -----------
+    estado : AppState
+        Objeto que mantiene el estado global de la aplicación, incluyendo datos, columnas seleccionadas y flags de avance.
+
+    Retorna:
+    --------
+    None
+    """
     if not estado.columnas_seleccionadas() or not estado.transformacion_categorica:
         print("❌ Error: Debe completar los pasos anteriores antes de normalizar.")
         return
