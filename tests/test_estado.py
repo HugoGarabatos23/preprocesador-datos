@@ -1,5 +1,6 @@
 # tests/test_estado.py
 import pytest
+import pandas as pd
 from estado import AppState
 
 
@@ -15,14 +16,14 @@ def test_singleton(app_state):
 
 
 def test_datos_cargados(app_state):
-    app_state.datos = "Algun dato"
+    app_state.datos = pd.DataFrame({"col1": [1, 2]})
     assert app_state.datos_cargados() is True
     app_state.datos = None
     assert app_state.datos_cargados() is False
 
 
 def test_columnas_seleccionadas(app_state):
-    app_state.datos = "Algun dato"
+    app_state.datos = pd.DataFrame({"feature1": [1, 2], "feature2": [3, 4]})
     app_state.features = ["feature1", "feature2"]
     app_state.target = "feature1"
     assert not app_state.columnas_seleccionadas()  # target está en features
@@ -32,6 +33,8 @@ def test_columnas_seleccionadas(app_state):
 
 
 def test_reset_columnas(app_state):
+    app_state.datos = pd.DataFrame({"feature1": [1, 2], "feature2": [3, 4]})
+
     app_state.features = ["feature1"]
     app_state.target = "feature1"
     app_state.reset_columnas()

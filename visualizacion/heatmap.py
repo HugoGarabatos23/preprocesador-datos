@@ -13,8 +13,17 @@ class Heatmap:
             # Seleccionar solo columnas numéricas
             datos_numericos = datos.select_dtypes(include=['float64', 'int64'])
 
+            if datos_numericos.shape[1] < 2:
+                print(
+                    "❌ No hay columnas numéricas adecuadas para crear un mapa de calor.")
+                return
+
             # Calcular la matriz de correlación
             correlacion = datos_numericos.corr()
+
+            if correlacion.empty or correlacion.shape[0] < 2:
+                print("❌ No hay suficientes datos para crear un mapa de calor.")
+                return
 
             # Crear el heatmap
             plt.figure(figsize=(10, 8))
@@ -26,7 +35,7 @@ class Heatmap:
             plt.show()
 
             estado.heatmap = True
-            print("✅ Heatmap generado exitosamente.")
+            print("✅ Mapa de calor generado exitosamente.")
 
         except Exception as e:
             print(f"❌ Error al crear el heatmap: {e}")

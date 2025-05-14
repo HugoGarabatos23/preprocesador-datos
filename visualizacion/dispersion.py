@@ -9,7 +9,7 @@ class DispersionPlot:
         Crea gráficos de dispersión comparando variables antes y después de la normalización.
         """
         try:
-            if estado.datos_sin_normalizar is None:
+            if estado.datos_sin_normalizar is None or estado.datos_sin_normalizar.empty:
                 print("❌ No hay datos originales disponibles para comparar.")
                 return
 
@@ -45,8 +45,10 @@ class DispersionPlot:
                 plt.tight_layout()
                 plt.show()
 
-            estado.dispersion = True
-            print("✅ Gráficos de dispersión comparativos generados correctamente.\n")
+            if any(feature not in estado.columnas_binarias and pd.api.types.is_numeric_dtype(datos_sin_normalizacion[feature]) for feature in features):
+                print("✅ Gráficos de dispersión comparativos generados correctamente.")
+                estado.dispersion = True
+            # print("✅ Gráficos de dispersión comparativos generados correctamente.\n")
 
         except Exception as e:
             print(f"❌ Error al generar los gráficos de dispersión: {e}")
