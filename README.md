@@ -1,4 +1,4 @@
-#  Preprocesador de Datos CLI
+# Preprocesador de Datos CLI
 
 Este proyecto es una herramienta interactiva de línea de comandos (CLI) para el preprocesamiento de datasets. Permite al usuario aplicar, paso a paso, operaciones comunes como:
 
@@ -11,34 +11,66 @@ Este proyecto es una herramienta interactiva de línea de comandos (CLI) para el
 - Visualización de datos antes y después del preprocesado
 - Exportación de los datos procesados (`.csv`, `.xlsx`)
 
-##  Requisitos
+## Requisitos
 
-- Python 3.10+
+- Python 3.12.2
 - pip
 
-Instala los paquetes necesarios con:
+## Instalación (descarga directa)
+
+1. **Descarga el proyecto**
+
+Ve a la sección de [Releases](https://github.com/HugoGarabatos23/preprocesador-datos/releases)  y descarga el archivo `.zip` más reciente o haz clic en el botón verde `Code` y luego en `Download ZIP` en la página principal del repositorio.
+
+2. **Extrae el archivo ZIP**
+
+Descomprime el archivo descargado en una carpeta local de tu elección.
+
+3. **Crea un entorno virtual**
+
+```bash
+python -m venv venv
+```
+Activa el entorno virtual:
+- En Windows
+  
+```bash
+venv\Scripts\activate
+```
+- En macOS/Linux
+
+```bash
+source venv/bin/activate
+```
+
+4. **Instala los paquetes necesarios con:**
 
 ```bash
 pip install -r requirements.txt
 ```
-Se debe activar el entorno virtual para ejecutar el programa, se puede hacer de la siguiente manera.
 
+5. **Uso**
+   
+Sitúate en la carpeta en una consola y ejecuta
 
+```bash
+python main.py
+```
 
 ##  Recomendación
 
 Hacer uso de Visual Studio Code para una mejor experiencia de usuario
 
-##  Particularidades
+##  Inicio de navegación
 
 El programa sigue la estructura de un pipeline. Está enfocado para seguir una serie de etapas secuencialmente. No se permite saltarse pasos. La única excepción es volver a cargar un nuevo archivo de datos sin tener que salir del programa.
 
-Pra ejecutar en consola hay que activar entorno virtual 
+ 
 
 ![incio](https://github.com/user-attachments/assets/d85eb9c7-ea87-4415-8bd8-5fbffc4fa82b)
 
 Para la ejecución del programa solo hará falta usar el teclado.
-Aquí insertaremos la ruta correspondiente, si tenemos el archivo en la misma carpeta que el main.py reconocerá facimente el archivo. 
+Aquí insertaremos la ruta correspondiente, si tenemos el archivo en la misma carpeta que el main.py reconocerá fácilmente  el archivo. 
 
 ![inicio2](https://github.com/user-attachments/assets/50539319-3b7e-43a2-a628-39beec5b3dac)
 
@@ -46,13 +78,15 @@ Durante el avance de las etapas irán surgiendo submenús para ampliar las opcio
 
 ![inicio3](https://github.com/user-attachments/assets/ba79b6af-723d-4385-a996-5b7db4c3ad07)
 
-Si vovlemos a presionar en el menú inicial en número 1, nos saltará un mensaje de advertencia de que se perderá el progreso del pipeline y se podrá volver a emepzar a gestionar otro archivo si se desea.
+## Peculiaridad
+
+Si volvemos a presionar en el menú inicial en número 1, nos saltará un mensaje de advertencia de que se perderá el progreso del pipeline y se podrá volver a empezar a gestionar otro archivo si se desea. Si escogemos seguir manejando nuestro archivo simplemente presionando  `n` seguiremos en el paso donde lo habíamos dejado.
 
 ![advertencia](https://github.com/user-attachments/assets/21642b7b-821c-4c1c-811c-08451dc22619)
 
-##   Pruebas 
+## Pruebas 
 
-Para ejecutar las pruebas hara solo falta ejecutar 
+Para ejecutar las pruebas hará solo falta ejecutar 
 
 
 ```bash
